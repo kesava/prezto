@@ -57,7 +57,7 @@ alias gcs='git show'
 alias gcl='git-commit-lost'
 
 # Data (d)
-alias gd='git ls-files'
+alias gdd='git ls-files'
 alias gdc='git ls-files --cached'
 alias gdx='git ls-files --deleted'
 alias gdm='git ls-files --modified'
@@ -123,6 +123,8 @@ alias gpA='git push --all && git push --tags'
 alias gpt='git push --tags'
 alias gpc='git push --set-upstream origin "$(git-branch-current 2> /dev/null)"'
 alias gpp='git pull origin "$(git-branch-current 2> /dev/null)" && git push origin "$(git-branch-current 2> /dev/null)"'
+alias gpm='git push origin master'
+alias gph='git push heroku master'
 
 # Rebase (r)
 alias gr='git rebase'
@@ -143,7 +145,8 @@ alias gRs='git remote show'
 alias gRb='git-hub-browse'
 
 # Stash (s)
-alias gs='git stash'
+# alias gs='git stash'
+alias gst='git stash'
 alias gsa='git stash apply'
 alias gsx='git stash drop'
 alias gsX='git-stash-clear-interactive'

@@ -12,3 +12,103 @@ fi
 
 # Customize to your needs...
 
+bindkey "\eOA" up-line-or-history
+bindkey "\eOB" down-line-or-history
+bindkey "\eOC" forward-char
+bindkey "\eOD" backward-char
+
+
+export EDITOR=$HOME/bin/subl
+
+alias 'tf=tail -F'
+alias 'cls=clear'
+alias 'grep=grep --colour'
+export RAILS_ENV='development'
+export vc_environment='local'
+export TERM="xterm-256color"
+
+
+# Ruby
+alias help-strftime='ruby ~/bin/help-strftime.rb'
+
+# Bundler
+alias b="bundle"
+alias bi="bundle install"
+alias be="bundle exec"
+alias bake="bundle exec rake"
+alias s="bundle exec rspec"
+alias cuc="bundle exec cucumber"
+
+# Rubygems
+alias gi="gem install"
+alias giv="gem install -v"
+export MY_BUNDLE_ENV='development'
+
+# Guard
+alias gstart="bundle exec guard start"
+
+# Rails
+alias migrate="bundle exec rake db:migrate db:test:prepare"
+alias remigrate="bundle exec rake db:migrate db:migrate:redo db:schema:dump db:test:prepare"
+alias remongrate="bundle exec rake mongoid:migrate mongoid:migrate:redo"
+alias restart="touch tmp/restart.txt"
+
+# Heroku staging
+alias staging='heroku run console --remote staging'
+alias staging-process='watch heroku ps --remote staging'
+alias staging-releases='heroku releases --remote staging'
+alias staging-tail='heroku logs --tail --remote staging'
+
+# Heroku production
+alias production='heroku run console --remote production'
+alias production-process='watch heroku ps --remote production'
+alias production-releases='heroku releases --remote production'
+alias production-tail='heroku logs --tail --remote production'
+
+# Heroku databases
+alias db-pull-staging='heroku db:pull --remote staging --confirm `basename $PWD`-staging'
+alias db-pull-production='heroku db:pull --remote production --confirm `basename $PWD`-production'
+alias db-copy-production-to-staging='heroku pgbackups:restore DATABASE `heroku pgbackups:url --remote production` --remote staging  --confirm `basename $PWD`-staging'
+alias db-backup-production='heroku pgbackups:capture --remote production'
+
+#redis
+alias redistogo='redis-cli -h clingfish.redistogo.com -p 9620 -a 523416d78cacc333d47c641e728cd90b'
+# More Dev related
+alias codes='cheat status_codes'
+
+
+# Quick find
+f() {
+    echo "find . -iname \"*$1*\""
+    find . -iname "*$1*"
+}
+
+# For quickly plotting data with gnuplot.  Arguments are files for 'plot "" with lines'.
+plot () {
+    echo -n '(echo set term png; '
+    echo -n 'echo -n plot \"'$1'\" with lines; '
+    for i in $*[2,$#@]; echo -n 'echo -n , \"'$i'\" with lines; '
+    echo 'echo ) | gnuplot | display png:-'
+
+    (
+  echo "set term png"
+  echo -n plot \"$1\" with lines
+  for i in $*[2,$#@]; echo -n "," \"$i\" "with lines"
+  ) | gnuplot | display png:-
+}
+# Persistant gnuplot (can be resized etc)
+plotp () {
+    echo -n '(echo -n plot \"'$1'\" with lines; '
+    for i in $*[2,$#@]; echo -n 'echo -n , \"'$i'\" with lines; '
+    echo 'echo ) | gnuplot -persist'
+
+    (
+  echo -n plot \"$1\" with lines
+  for i in $*[2,$#@]; echo -n "," \"$i\" "with lines"
+  echo
+  ) | gnuplot -persist
+}
+
+[ -s "$HOME/.scm_breeze/scm_breeze.sh" ] && source "$HOME/.scm_breeze/scm_breeze.sh"
+
+
